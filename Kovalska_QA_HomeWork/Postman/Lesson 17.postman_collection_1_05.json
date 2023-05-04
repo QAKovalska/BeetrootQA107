@@ -1,0 +1,1223 @@
+{
+	"info": {
+		"_postman_id": "f074edc2-dcc1-4711-9ae2-3ed824eaaaab",
+		"name": "Lesson 17",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27050753"
+	},
+	"item": [
+		{
+			"name": "Delet not exist Client",
+			"item": [
+				{
+					"name": "Positiv test_Create a client",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Pre-request_begin');\r",
+									"var name = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+									"console.log(name);\r",
+									"pm.environment.set(\"name\", name);\r",
+									"console.log(name);\r",
+									"console.log('Pre-request_end');\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verification of successful creation\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"// Varification strign name\r",
+									"pm.test(\"Name is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"});\r",
+									"// Varification strign gender\r",
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"//// Varification number age\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"// Save clientID as collection var\r",
+									"pm.test(\"Definition of Collection var clientID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set(\"clientID\", responseJson.id);\r",
+									"console.log(pm.collectionVariables.get(\"clientID\"));\r",
+									"console.log(pm.response.json().name);\r",
+									"    });\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // name is created by Random in Pre-request\r\n\"name\": \"{{name}}\",\r\n\"age\": \"42\",\r\n\"gender\": \"female\",\r\n\"city\": \"Kiyv\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negativ_Client is exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users?id={{clientID}}",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{clientID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rename Client",
+			"item": [
+				{
+					"name": "Positiv test_Create a client",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Pre-request_begin');\r",
+									"var name = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+									"console.log(name);\r",
+									"pm.environment.set(\"name\", name);\r",
+									"console.log(name);\r",
+									"console.log('Pre-request_end');\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verification of successful creation\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"// Varification strign name\r",
+									"pm.test(\"Name is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"});\r",
+									"// Varification strign gender\r",
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"//// Varification number age\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"// Save clientID as collection var\r",
+									"pm.test(\"Definition of Collection var clientID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set(\"clientID\", responseJson.id);\r",
+									"console.log(pm.collectionVariables.get(\"clientID\"));\r",
+									"console.log(pm.response.json().name);\r",
+									"    });\r",
+									"// Save clientID as global var\r",
+									"pm.test(\"Definition glibal var ID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.globals.set(\"ID\", responseJson.id);\r",
+									"    });\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // name is created by Random in Pre-request\r\n\"name\": \"{{name}}\",\r\n\"age\": \"42\",\r\n\"gender\": \"female\",\r\n\"city\": \"Kiyv\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_Rename is verify",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"pm.test(\"Kovalska is a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Kovalska\");\r",
+									"});\r",
+									"pm.test(\"Chuprova isn't a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Chuprova\");\r",
+									"});\r",
+									"pm.test(\"name is less than 5 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name <= 5);\r",
+									"});\r",
+									"pm.test(\"name is more than 21 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name < 21);\r",
+									"});\r",
+									"pm.test(\"gender is only “male” or “female” \", function(){\r",
+									"    let arr = ['male', 'female'],\r",
+									"    replayStickerObject = pm.response.json();\r",
+									"  arr.forEach((x) => {\r",
+									"    pm.expect(replayStickerObject.gender).to.be.oneOf(arr);\r",
+									"  }); \r",
+									"  \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": 41,\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_New client's name<21",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"pm.test(\"Kovalska is a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Kovalska\");\r",
+									"});\r",
+									"pm.test(\"Chuprova isn't a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Chuprova\");\r",
+									"});\r",
+									"pm.test(\"name is less than 5 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name <= 5);\r",
+									"});\r",
+									"pm.test(\"name is more than 21 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name < 21);\r",
+									"});\r",
+									"pm.test(\"gender is only “male” or “female” \", function(){\r",
+									"    let arr = ['male', 'female'],\r",
+									"    replayStickerObject = pm.response.json();\r",
+									"  arr.forEach((x) => {\r",
+									"    pm.expect(replayStickerObject.gender).to.be.oneOf(arr);\r",
+									"  }); \r",
+									"  \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": 41,\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_New client's name>5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"pm.test(\"Kovalska is a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Kovalska\");\r",
+									"});\r",
+									"pm.test(\"Chuprova isn't a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Chuprova\");\r",
+									"});\r",
+									"pm.test(\"name is less than 5 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name <= 5);\r",
+									"});\r",
+									"pm.test(\"name is more than 21 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name < 21);\r",
+									"});\r",
+									"pm.test(\"gender is only “male” or “female” \", function(){\r",
+									"    let arr = ['male', 'female'],\r",
+									"    replayStickerObject = pm.response.json();\r",
+									"  arr.forEach((x) => {\r",
+									"    pm.expect(replayStickerObject.gender).to.be.oneOf(arr);\r",
+									"  }); \r",
+									"  \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": 41,\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Account",
+			"item": [
+				{
+					"name": "Positiv test_Create a client",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Pre-request_begin');\r",
+									"var name = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+									"console.log(name);\r",
+									"pm.environment.set(\"name\", name);\r",
+									"console.log(name);\r",
+									"console.log('Pre-request_end');\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verification of successful creation\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"// Varification strign name\r",
+									"pm.test(\"Name is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"});\r",
+									"// Varification strign gender\r",
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"//// Varification number age\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"// Save clientID as collection var\r",
+									"pm.test(\"Definition of Collection var clientID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set(\"clientID\", responseJson.id);\r",
+									"console.log(pm.collectionVariables.get(\"clientID\"));\r",
+									"console.log(pm.response.json().name);\r",
+									"    });\r",
+									"// Save clientID as global var\r",
+									"pm.test(\"Definition glibal var ID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.globals.set(\"ID\", responseJson.id);\r",
+									"    });\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // name is created by Random in Pre-request\r\n\"name\": \"{{name}}\",\r\n\"age\": \"42\",\r\n\"gender\": \"female\",\r\n\"city\": \"Kiyv\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negativ_ test_invalid age",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Name is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"Budanova\",\r\n\"age\": \"{{age}}\",\r\n\"gender\": \"female\",\r\n\"city\": \"Kyiv\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users?age=42",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "age",
+									"value": "42"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negativ test_invalid name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Hello')"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Name is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"});\r",
+									"pm.test(\"Definition of Collection var clientID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set(\"clientID\", responseJson.id);\r",
+									"console.log(pm.collectionVariables.get(\"clientID\"));\r",
+									"console.log(pm.response.json().name);\r",
+									"    });\r",
+									"pm.test(\"Definition var ID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.globals.set(\"ID\", responseJson.id);\r",
+									"    });\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"Budanova\",\r\n\"age\": 42,\r\n\"gender\": \"female\",\r\n\"city\": \"Kyiv\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users?errorName=12345",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "errorName",
+									"value": "12345",
+									"description": "numer"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_client age isn't Null",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Age isn't Null\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.age).to.not.be.null;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users?id={{clientID}}",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{clientID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Edit Client",
+			"item": [
+				{
+					"name": "Positiv test_Create a client Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Pre-request_begin');\r",
+									"var name = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+									"console.log(name);\r",
+									"pm.environment.set(\"name\", name);\r",
+									"console.log(name);\r",
+									"console.log('Pre-request_end');\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verification of successful creation\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"// Varification strign name\r",
+									"pm.test(\"Name is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"});\r",
+									"// Varification strign gender\r",
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"//// Varification number age\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"// Save clientID as collection var\r",
+									"pm.test(\"Definition of Collection var clientID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set(\"clientID\", responseJson.id);\r",
+									"console.log(pm.collectionVariables.get(\"clientID\"));\r",
+									"console.log(pm.response.json().name);\r",
+									"    });\r",
+									"// Save clientID as global var\r",
+									"pm.test(\"Definition glibal var ID\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.globals.set(\"ID\", responseJson.id);\r",
+									"    });\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // name is created by Random in Pre-request\r\n\"name\": \"{{name}}\",\r\n\"age\": \"42\",\r\n\"gender\": \"female\",\r\n\"city\": \"Kiyv\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_new Gender is female/male Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"gender is only “male” or “female” \", function(){\r",
+									"    let arr = ['male', 'female'],\r",
+									"    replayStickerObject = pm.response.json();\r",
+									"  arr.forEach((x) => {\r",
+									"    pm.expect(replayStickerObject.gender).to.be.oneOf(arr);\r",
+									"  }); \r",
+									"  \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": 41,\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_ new Age is verify",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"pm.test(\"Kovalska is a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Kovalska\");\r",
+									"});\r",
+									"pm.test(\"Chuprova isn't a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Chuprova\");\r",
+									"});\r",
+									"pm.test(\"name is less than 5 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name <= 5);\r",
+									"});\r",
+									"pm.test(\"name is more than 21 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name < 21);\r",
+									"});\r",
+									"pm.test(\"gender is only “male” or “female” \", function(){\r",
+									"    let arr = ['male', 'female'],\r",
+									"    replayStickerObject = pm.response.json();\r",
+									"  arr.forEach((x) => {\r",
+									"    pm.expect(replayStickerObject.gender).to.be.oneOf(arr);\r",
+									"  }); \r",
+									"  \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": 41,\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_City is changed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"City is changed\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.city).to.eql(pm.environment.get(\"clientCity\"));\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"var randCity = pm.variables.replaceIn('{{$randomCity}}');\r",
+									"pm.environment.set(\"city\", randCity);\r",
+									"console.log(randCity);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"city\": \"{{city}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Positiv_Delete a client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users?id={{clientID}}",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{clientID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negativ_Edit age of non-existent client",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": \"42\",\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://em.staging.api.onereach.ai/http/1b3bebb7-e882-4f1e-a74b-ee381bfa69d6/users",
+							"protocol": "https",
+							"host": [
+								"em",
+								"staging",
+								"api",
+								"onereach",
+								"ai"
+							],
+							"path": [
+								"http",
+								"1b3bebb7-e882-4f1e-a74b-ee381bfa69d6",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negativ_Edit city of non-existent client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Gender is string\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.gender).to.be.a('string');\r",
+									"})\r",
+									"pm.test(\"Age is number\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.age).to.be.a('number');\r",
+									"});\r",
+									"pm.test(\"Kovalska is a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Kovalska\");\r",
+									"});\r",
+									"pm.test(\"Chuprova isn't a client\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"pm.expect(responseJson.name).to.include(\"Chuprova\");\r",
+									"});\r",
+									"pm.test(\"name is less than 5 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name <= 5);\r",
+									"});\r",
+									"pm.test(\"name is more than 21 symbols \", function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.name < 21);\r",
+									"});\r",
+									"pm.test(\"gender is only “male” or “female” \", function(){\r",
+									"    let arr = ['male', 'female'],\r",
+									"    replayStickerObject = pm.response.json();\r",
+									"  arr.forEach((x) => {\r",
+									"    pm.expect(replayStickerObject.gender).to.be.oneOf(arr);\r",
+									"  }); \r",
+									"  \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{clientID}}\",\r\n\"name\": \"Kovalska\",\r\n\"age\": 41,\r\n\"gender\": \"female\",\r\n\"city\": \"Uster\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negativ_Get non-existent client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"can't found user\", function () {\r",
+									"pm.response.to.have.body('No user found');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{URL}}/users?id={{clientID}}",
+							"protocol": "https",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{clientID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "clientID",
+			"value": ""
+		},
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ageRandom",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "clientName",
+			"value": ""
+		},
+		{
+			"key": "clientCity",
+			"value": ""
+		}
+	]
+}
